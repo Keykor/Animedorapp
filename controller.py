@@ -16,7 +16,7 @@ class Controller():
         self.root.mainloop()
 
     def update_clock(self):
-        self.view.timerLabel['text'] = self.model.clock.actual_time()
+        self.view.timerLabel['text'] = str(self.model.clock.remaining_time()).split(".")[0]
 
     def start_clock(self, event):
         if (not self.model.clock.has_started()):
@@ -24,14 +24,10 @@ class Controller():
             self.countdown()
 
     def reset_clock(self, event):
-        if (self.last_delayed_function):
-            self.view.timerLabel.after_cancel(self.last_delayed_function)
-            self.last_delayed_function = None
         self.model.clock.reset_countdown()
         self.update_clock()
 
     def countdown(self):
-        if (not self.model.clock.has_finished()):
-            self.model.clock.remove_one_second()
-            self.update_clock()
+        self.update_clock()
+        if (self.model.clock.has_started() and not self.model.clock.has_finished()):
             self.last_delayed_function = self.view.timerLabel.after(1000, self.countdown)
