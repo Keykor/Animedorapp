@@ -11,16 +11,16 @@ class View():
         top_frame.pack()
         top_frame.pack_propagate(0)
 
-        title_label = tk.Label(top_frame, background="#0275d8", fg="#f7f7f7", text="Animedoro", font=("Roboto", 25, "bold"))
-        title_label.pack(side=tk.TOP, fill = tk.BOTH, expand = True)
+        self.title_label = tk.Label(top_frame, background="#0275d8", fg="#f7f7f7", text="Animedoro", font=("Roboto", 25, "bold"))
+        self.title_label.pack(side=tk.TOP, fill = tk.BOTH, expand = True)
 
-        self.work_button = tk.Button(top_frame, text="Work", background="#5bc0de", fg="#f7f7f7", font=("Roboto", 10, "bold"))
-        self.rest_button = tk.Button(top_frame, text="Rest", background="#5bc0de", fg="#f7f7f7", font=("Roboto", 10, "bold"))
-        self.options_button = tk.Button(top_frame, text="Options", background="#5bc0de", fg="#f7f7f7", font=("Roboto", 10, "bold"))
+        self.animedoro_button = tk.Button(top_frame, text="Animedoro", background="#5bc0de", fg="#f7f7f7", font=("Roboto", 10, "bold"))
+        self.break_button = tk.Button(top_frame, text="Break", background="#5bc0de", fg="#f7f7f7", font=("Roboto", 10, "bold"))
+        """self.options_button = tk.Button(top_frame, text="Options", background="#5bc0de", fg="#f7f7f7", font=("Roboto", 10, "bold"))"""
         
-        self.work_button.pack(side=tk.LEFT, fill = tk.BOTH, expand = True)
-        self.rest_button.pack(side=tk.LEFT, fill = tk.BOTH, expand = True)
-        self.options_button.pack(side=tk.LEFT, fill = tk.BOTH, expand = True)
+        self.animedoro_button.pack(side=tk.LEFT, fill = tk.BOTH, expand = True)
+        self.break_button.pack(side=tk.LEFT, fill = tk.BOTH, expand = True)
+        """self.options_button.pack(side=tk.LEFT, fill = tk.BOTH, expand = True)"""
 
         self.create_timer()
         
