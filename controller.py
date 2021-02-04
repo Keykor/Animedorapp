@@ -9,14 +9,14 @@ class Controller():
         self.model = Model()
         self.view = View(self.root)
         self.update_clock()
-        self.view.leftTimerReset.bind("<Button>", self.reset_clock)
-        self.view.leftTimerStart.bind("<Button>", self.start_clock)
+        self.view.timer_reset.bind("<Button>", self.reset_clock)
+        self.view.timer_start.bind("<Button>", self.start_clock)
 
     def run(self):
         self.root.mainloop()
 
     def update_clock(self):
-        self.view.leftTimerLabel['text'] = str(self.model.clock.remaining_time()).split(".")[0]
+        self.view.timer_label['text'] = str(self.model.clock.remaining_time()).split(".")[0]
 
     def start_clock(self, event):
         if (not self.model.clock.has_started()):
@@ -30,4 +30,4 @@ class Controller():
     def countdown(self):
         self.update_clock()
         if (self.model.clock.has_started() and not self.model.clock.has_finished()):
-            self.last_delayed_function = self.view.leftTimerLabel.after(200, self.countdown)
+            self.last_delayed_function = self.view.timer_label.after(200, self.countdown)
