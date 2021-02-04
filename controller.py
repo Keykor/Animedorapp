@@ -52,7 +52,7 @@ class Controller():
 
     def create_animedoro_clock(self, event):
         self.finish_sound_played = False
-        self.model.create_new_clock(1, "Animedoro")
+        self.model.create_new_clock(60, "Animedoro")
         self.update_clock()
 
     def create_break_clock(self, event):
