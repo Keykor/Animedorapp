@@ -33,9 +33,8 @@ class Controller():
             pygame.mixer.music.play()
 
     def start_clock(self, event):
-        if (not self.model.clock.on_going()):
-            self.model.clock.start_countdown()
-            self.countdown()
+        self.model.clock.start_countdown()
+        self.countdown()
 
     def reset_clock(self, event):
         self.model.clock.reset_countdown()
