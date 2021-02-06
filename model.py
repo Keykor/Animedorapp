@@ -12,7 +12,7 @@ class Clock():
     def __init__(self, duration, clock_name):
         self._duration = timedelta(minutes=duration)
         self._clock_name = clock_name
-        self._state = ClockStateDefault(self)
+        self._state = ClockStateDefault(self._duration, self)
 
     def remaining_time(self):
         return self._state.remaining_time()
@@ -45,9 +45,9 @@ class Clock():
         return self._clock_name
 
 class ClockStateDefault():
-    def __init__(self, clock):
+    def __init__(self, duration, clock):
         self._clock = clock
-        self._duration = clock.original_duration()
+        self._duration = duration
         self._endTime = datetime.now() + self._duration
 
     def remaining_time(self):
@@ -57,7 +57,7 @@ class ClockStateDefault():
         self._clock.change_state(ClockStateStarted(self.remaining_time(), self._clock))
 
     def reset_countdown(self):
-        self._clock.change_state(ClockStateDefault(self._clock))
+        self._clock.change_state(ClockStateDefault(self._clock.original_duration(),self._clock))
 
     def stop_countdown(self):
         pass
@@ -73,8 +73,7 @@ class ClockStateDefault():
 
 class ClockStateStarted(ClockStateDefault):
     def __init__(self, duration, clock):
-        super(ClockStateStarted, self).__init__(clock)
-        self._duration = duration
+        super(ClockStateStarted, self).__init__(duration, clock)
 
     def start_countdown(self):
         pass
@@ -87,6 +86,7 @@ class ClockStateStarted(ClockStateDefault):
         if (remaining_time <= timedelta(seconds=0)):
             self._clock.change_state(ClockStateFinished(self._clock))
             return timedelta(hours=0)
+        print(remaining_time)
         return remaining_time
 
     def on_going(self):
@@ -97,10 +97,10 @@ class ClockStateStarted(ClockStateDefault):
 
 class ClockStateStopped(ClockStateDefault):
     def __init__(self, duration, clock):
-        super(ClockStateStopped, self).__init__(clock)
-        self._duration = duration
+        super(ClockStateStopped, self).__init__(duration, clock)
 
     def start_countdown(self):
+        print("ZA WARUDO:", self.remaining_time())
         self._clock.change_state(ClockStateStarted(self.remaining_time(), self._clock))
 
     def on_going(self):
@@ -111,8 +111,7 @@ class ClockStateStopped(ClockStateDefault):
 
 class ClockStateFinished(ClockStateDefault):
     def __init__(self, clock):
-        super(ClockStateFinished, self).__init__(clock)
-        self._duration = timedelta(hours=0)
+        super(ClockStateFinished, self).__init__(timedelta(hours=0), clock)
 
     def start_countdown(self):
         pass
